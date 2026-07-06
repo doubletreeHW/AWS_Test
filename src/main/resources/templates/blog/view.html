@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${post.title} + ' - Simple Blog'">포스트 보기</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" th:href="@{/css/blog.css}" href="/css/blog.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">Simple<span>Blog</span></a>
+            <a href="/posts/new" class="btn btn-primary">
+                <i data-lucide="pen-tool"></i> 글쓰기
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+        <article>
+            <header class="post-detail-header">
+                <h1 class="post-detail-title" th:text="${post.title}">글 제목</h1>
+                <div class="post-meta">
+                    <span class="post-author" th:text="${post.author}">작성자</span>
+                    <span>•</span>
+                    <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">작성일</span>
+                </div>
+            </header>
+
+            <section class="post-content" th:text="${post.content}">
+                글 내용이 들어갑니다.
+            </section>
+        </article>
+
+        <div class="detail-actions">
+            <a href="/" class="btn btn-outline">
+                <i data-lucide="arrow-left"></i> 목록으로
+            </a>
+            <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post" onsubmit="return confirm('이 글을 삭제하시겠습니까?');">
+                <button type="submit" class="btn btn-danger">
+                    <i data-lucide="trash-2"></i> 삭제하기
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Simple Blog. Built with Spring Boot.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

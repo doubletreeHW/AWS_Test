@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 글 작성 - Simple Blog</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" th:href="@{/css/blog.css}" href="/css/blog.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">Simple<span>Blog</span></a>
+            <a href="/" class="btn btn-outline">
+                <i data-lucide="arrow-left"></i> 목록으로
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>새 포스트 작성</h1>
+        <p class="page-desc">새로운 생각이나 개발 일지를 블로그에 남겨보세요.</p>
+
+        <div class="form-card">
+            <form th:action="@{/posts}" method="post">
+                <div class="form-group">
+                    <label for="title">제목</label>
+                    <input type="text" id="title" name="title" placeholder="글 제목을 입력하세요" required autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="author">작성자</label>
+                    <input type="text" id="author" name="author" placeholder="작성자 이름을 입력하세요 (기본값: 익명)" autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="content">내용</label>
+                    <textarea id="content" name="content" placeholder="블로그 내용을 작성하세요..." required></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <a href="/" class="btn btn-outline">취소</a>
+                    <button type="submit" class="btn btn-primary">
+                        <i data-lucide="check"></i> 작성 완료
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Simple Blog. Built with Spring Boot.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

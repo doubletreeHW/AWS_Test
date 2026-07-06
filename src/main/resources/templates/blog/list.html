@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>심플 블로그</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" th:href="@{/css/blog.css}" href="/css/blog.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">Simple<span>Blog</span></a>
+            <a href="/posts/new" class="btn btn-primary">
+                <i data-lucide="pen-tool"></i> 글쓰기
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>개발 블로그</h1>
+        <p class="page-desc">생각을 정리하고, 개발 내용을 공유하는 공간입니다.</p>
+
+        <div class="posts-list" th:if="${not #lists.isEmpty(posts)}">
+            <article class="post-card" th:each="post : ${posts}">
+                <div class="post-meta">
+                    <span class="post-author" th:text="${post.author}">작성자</span>
+                    <span>•</span>
+                    <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">작성일</span>
+                </div>
+                <a th:href="@{/posts/{id}(id=${post.id})}" class="post-title-link" th:text="${post.title}">글 제목</a>
+                <p class="post-excerpt" th:text="${post.content}">글 내용 일부가 여기에 표시됩니다...</p>
+            </article>
+        </div>
+
+        <div class="empty-state" th:if="${#lists.isEmpty(posts)}">
+            <i data-lucide="book-open"></i>
+            <p>아직 작성된 포스트가 없습니다. 첫 글을 작성해 보세요!</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Simple Blog. Built with Spring Boot.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
